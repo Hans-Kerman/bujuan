@@ -1,32 +1,26 @@
 name: Build Windows App
 
 on:
-  # 允许你手动在 Actions 页面点击按钮来触发这个流程
   workflow_dispatch:
 
 jobs:
   build:
-    # 使用 GitHub 提供的 Windows 最新版虚拟机
     runs-on: windows-latest
 
     steps:
-      # 第一步：下载你的代码到虚拟机
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # ✅ 建议一起升级
 
-      # 第二步：在虚拟机上安装 Flutter 环境
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable' # 使用稳定版的 Flutter
+          channel: 'stable'
 
-      # 第三步：运行 Flutter 的标准编译命令
       - name: Build Windows executable
         run: flutter build windows
 
-      # 第四步：将编译好的文件打包，以便我们下载
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # ✅ 改成v4
         with:
           name: Bujuan-Windows
           path: build/windows/runner/Release/
