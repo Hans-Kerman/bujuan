@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive  # 如果项目未来补齐了子模块，这行就能自动拉取
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
