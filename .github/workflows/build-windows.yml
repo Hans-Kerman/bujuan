@@ -9,20 +9,26 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # ✅ 建议一起升级
+        uses: actions/checkout@v4
         with:
-          submodules: true  # ✅ 拉取子模块（插件）
+          submodules: recursive  # 如果项目未来补齐了子模块，这行就能自动拉取
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-      - name: Build Windows executable
-        run: flutter build windows
+      # 这一步安装所有依赖
+      - name: Get Flutter dependencies
+        run: flutter pub get
 
+      # 编译 Windows 可执行文件
+      - name: Build Windows executable
+        run: flutter build windows --release
+
+      # 上传编译产物
       - name: Upload artifact
-        uses: actions/upload-artifact@v4  # ✅ 改成v4
+        uses: actions/upload-artifact@v4
         with:
           name: Bujuan-Windows
           path: build/windows/runner/Release/
