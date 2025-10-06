@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4  # ✅ 建议一起升级
+        with:
+          submodules: true  # ✅ 拉取子模块（插件）
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
